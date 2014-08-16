@@ -19,7 +19,9 @@ class Cisco300 < Oxidized::Model
   cmd :all do |cfg|
     #cfg.gsub! /\cH+\s{8}/, ''         # example how to handle pager
     #cfg.gsub! /\cH+/, ''              # example how to handle pager
-    cfg.each_line.to_a[1..-2].join
+    lines = cfg.each_line.to_a[1..-2]
+    lines[0].gsub!(/^\r.*?/,'') if lines.length > 0
+    lines.join
   end
 
   cmd :secret do |cfg|
