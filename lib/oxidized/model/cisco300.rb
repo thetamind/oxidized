@@ -31,7 +31,7 @@ class Cisco300 < Oxidized::Model
   end
 
   cmd 'show version' do |cfg|
-    comment cfg.lines.first
+    comment cfg
   end
 
   cmd 'show inventory' do |cfg|
