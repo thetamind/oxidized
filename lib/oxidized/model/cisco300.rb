@@ -35,11 +35,6 @@ class Cisco300 < Oxidized::Model
     cfg
   end
 
-  cfg :telnet do
-    username /^User Name:/
-    password /^\r?Password:$/
-  end
-
   cfg :telnet, :ssh do
     username /^User Name:/
     password /^\r?Password:$/
