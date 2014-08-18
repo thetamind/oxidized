@@ -3,22 +3,7 @@ class Cisco300 < Oxidized::Model
   prompt /^\r?([\w.@()-]+[#>]\s?)$/
   comment  '! '
 
-  # example how to handle pager
-  #expect /^\s--More--\s+.*$/ do |data, re|
-  #  send ' '
-  #  data.sub re, ''
-  #end
-
-  # non-preferred way to handle additional PW prompt
-  #expect /^[\w.]+>$/ do |data|
-  #  send "enable\n"
-  #  send vars(:enable) + "\n"
-  #  data
-  #end
-
   cmd :all do |cfg|
-    #cfg.gsub! /\cH+\s{8}/, ''         # example how to handle pager
-    #cfg.gsub! /\cH+/, ''              # example how to handle pager
     lines = cfg.each_line.to_a[1..-2]
     lines[0].gsub!(/^\r.*?/,'') if lines.length > 0
     lines.join
@@ -56,15 +41,8 @@ class Cisco300 < Oxidized::Model
   cfg :telnet, :ssh do
     username /^User Name:/
     password /^\r?Password:$/
-    post_login 'terminal datadump'
+    post_login 'terminal datadump' # Disable pager
     post_login 'terminal width 0'
-    # preferred way to handle additional passwords
-    if vars :enable
-      post_login do
-        send "enable\n"
-        send vars(:enable) + "\n"
-      end
-    end
     pre_logout 'exit'
   end
 
