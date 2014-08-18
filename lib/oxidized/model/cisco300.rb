@@ -1,5 +1,7 @@
 class Cisco300 < Oxidized::Model
 
+  # Cisco Small Business 200, 300, 500, and ESW2 series switches
+
   prompt /^\r?([\w.@()-]+[#>]\s?)$/
   comment  '! '
 
